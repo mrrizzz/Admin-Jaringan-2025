@@ -1,7 +1,4 @@
-<h1 align="center">
-  Chapter 5: Filesystem
-</h1>
-
+# Bab 4: Pengendalian Proses
 <br>
 
 ![filesystem-icon](https://miro.medium.com/v2/resize:fit:752/1*quw0WvsLLCxad3WC6fjQ1Q.png)
