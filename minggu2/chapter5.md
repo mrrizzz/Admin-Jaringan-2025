@@ -1,5 +1,4 @@
-# Bab 4: Pengendalian Proses
-<br>
+# Bab 5: Filesystem
 
 ![filesystem-icon](https://miro.medium.com/v2/resize:fit:752/1*quw0WvsLLCxad3WC6fjQ1Q.png)
 
@@ -9,23 +8,23 @@ Filesystem bertujuan untuk mengatur dan merepresentasikan sumber daya penyimpana
 
 Pathname adalah string yang menunjukkan lokasi file dalam hierarki filesystem. Pathname bisa bersifat absolute (contoh: `/home/username/file.txt`) atau relative (contoh: `./file.txt`). Istilah "folder" sebaiknya dihindari dalam konteks teknis, gunakan "directory".
 
-## Filesystem mounting and unmounting
+## Filesystem Mounting and Unmounting
 
-Filesystem di-attach ke pohon direktori dengan perintah mount. Mount point adalah direktori yang menjadi titik attachment filesystem baru. Contoh:
+Filesystem di-attach ke pohon direktori dengan perintah `mount`. Mount point adalah direktori yang menjadi titik attachment filesystem baru. Contoh:
 
 ```bash
 mount /dev/sda4 /users
 ```
 
-Unmounting bisa dilakukan dengan umount. Opsi umount -l untuk lazy unmount dan umount -f untuk forceful unmount. Untuk mengetahui proses yang menggunakan filesystem, gunakan lsof atau fuser.
+Unmounting bisa dilakukan dengan `umount`. Opsi `umount -l` untuk lazy unmount dan `umount -f` untuk forceful unmount. Untuk mengetahui proses yang menggunakan filesystem, gunakan `lsof` atau `fuser`.
 
-## Organisasi dari file tree
+## Organisasi File Tree
 
-Struktur file tree di sistem UNIX tidak terorganisir dengan baik. Beberapa direktori penting termasuk /boot (kernel), /etc (file konfigurasi), /bin dan /sbin (utilitas sistem), /tmp (file sementara), /dev (file perangkat), /usr (program dan library), dan /var (file yang sering berubah seperti log).
+Struktur file tree di sistem UNIX tidak terorganisir dengan baik. Beberapa direktori penting termasuk `/boot` (kernel), `/etc` (file konfigurasi), `/bin` dan `/sbin` (utilitas sistem), `/tmp` (file sementara), `/dev` (file perangkat), `/usr` (program dan library), dan `/var` (file yang sering berubah seperti log).
 
 ![pathnames](./image/pathnames.png)
 
-## Tipe file
+## Tipe File
 
 Filesystem mendefinisikan tujuh jenis file:
 
@@ -39,7 +38,7 @@ Filesystem mendefinisikan tujuh jenis file:
 
 ![File Type Encoding](./image/file-type-encoding.png)
 
-## Atribut file
+## Atribut File
 
 Setiap file memiliki permission bits yang menentukan siapa yang bisa membaca, menulis, dan mengeksekusi file. Permission bits dibagi menjadi tiga grup: owner, group, dan others. Selain itu, ada setuid, setgid, dan sticky bit yang memengaruhi eksekusi file dan direktori.
 
@@ -47,20 +46,24 @@ Setiap file memiliki permission bits yang menentukan siapa yang bisa membaca, me
 
 ### Permission Bits
 
-Permission bits bisa diatur dengan perintah chmod menggunakan notasi oktal atau simbolik. Contoh:
+Permission bits bisa diatur dengan perintah `chmod` menggunakan notasi oktal atau simbolik. Contoh:
 
 ```bash
 chmod u+w file.txt  # Menambahkan write permission untuk owner
 chmod 755 file.txt  # Mengatur permission menjadi rwxr-xr-x
 ```
 
-### setuid dan setgid Bits
+### Setuid dan Setgid Bits
 
-Bit setuid dan setgid memungkinkan file dijalankan dengan hak akses owner atau group file tersebut. Pada direktori, setgid menyebabkan file baru memiliki group yang sama dengan direktori.
+Bit `setuid` dan `setgid` memungkinkan file dijalankan dengan hak akses owner atau group file tersebut. Pada direktori, `setgid` menyebabkan file baru memiliki group yang sama dengan direktori.
 
 ### Sticky Bit
 
-Bit setuid dan setgid memungkinkan file dijalankan dengan hak akses owner atau group file tersebut. Pada direktori, setgid menyebabkan file baru memiliki group yang sama dengan direktori.
+Sticky bit memungkinkan hanya owner atau root yang bisa menghapus file dalam direktori yang di-share. Contoh penerapannya pada `/tmp`:
+
+```bash
+chmod +t /tmp
+```
 
 ### ls, chmod, chown, chgrp, dan umask
 
